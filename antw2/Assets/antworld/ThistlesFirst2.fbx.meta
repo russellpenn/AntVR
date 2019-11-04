@@ -1,0 +1,146 @@
+fileFormatVersion: 2
+guid: ae70310735d18d14cadaa10232df5c48
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Camera
+    100002: Lamp
+    100004: //RootNode
+    100006: thistlesReduced
+    100008: thistlesReduced_MeshPart0
+    100010: thistlesReduced_MeshPart1
+    100012: thistlesReduced_MeshPart2
+    100014: thistlesReduced_MeshPart3
+    400000: Camera
+    400002: Lamp
+    400004: //RootNode
+    400006: thistlesReduced
+    400008: thistlesReduced_MeshPart0
+    400010: thistlesReduced_MeshPart1
+    400012: thistlesReduced_MeshPart2
+    400014: thistlesReduced_MeshPart3
+    2300000: thistlesReduced_MeshPart0
+    2300002: thistlesReduced_MeshPart1
+    2300004: thistlesReduced_MeshPart2
+    2300006: thistlesReduced_MeshPart3
+    3300000: thistlesReduced_MeshPart0
+    3300002: thistlesReduced_MeshPart1
+    3300004: thistlesReduced_MeshPart2
+    3300006: thistlesReduced_MeshPart3
+    4300000: thistlesReduced_MeshPart0
+    4300002: thistlesReduced_MeshPart1
+    4300004: thistlesReduced_MeshPart2
+    4300006: thistlesReduced_MeshPart3
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brown
+    second: {fileID: 2100000, guid: adacc58fbd6175541a7fe63be8b20702, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlowersFloor
+    second: {fileID: 2100000, guid: c7d6ec7fc9a3dc8408a4f0ac11309477, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Green
+    second: {fileID: 2100000, guid: 8e39320b483ebcc4f872fed10454ee7b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nest
+    second: {fileID: 2100000, guid: 2801edbe23b34e94c888ecaa47771bb1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rock
+    second: {fileID: 2100000, guid: bca0760dd8c6ddd439e845144c5c4c10, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: purple
+    second: {fileID: 2100000, guid: e10f7a967e896d54a95edb9a8768b0cf, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+    normalCalculationMode: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

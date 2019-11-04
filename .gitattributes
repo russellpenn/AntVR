@@ -1,0 +1,5 @@
+antw2/Assets/untitled.obj filter=lfs diff=lfs merge=lfs -text
+antw2/Assets/antworld/thistlesReduced.obj filter=lfs diff=lfs merge=lfs -text
+antw2/Assets/antworld/TestNewMesh.obj filter=lfs diff=lfs merge=lfs -text
+antw2/Assets/antworld/sand1.1.obj filter=lfs diff=lfs merge=lfs -text
+antw2/Assets/msc2017/vegetationwithcolor.fbx filter=lfs diff=lfs merge=lfs -text
