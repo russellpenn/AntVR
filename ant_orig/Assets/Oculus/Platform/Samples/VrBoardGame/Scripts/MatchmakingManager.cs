@@ -18,13 +18,13 @@ namespace Oculus.Platform.Samples.VrBoardGame
 	public class MatchmakingManager : MonoBehaviour
 	{
 		// GameController to notify about match completions or early endings
-		[SerializeField] private GameController m_gameController = null;
+		[SerializeField] private GameController m_gameController;
 
 		// Text for the button that controls matchmaking
-		[SerializeField] private Text m_matchButtonText = null;
+		[SerializeField] private Text m_matchButtonText;
 
 		// Test widget to render matmaking statistics
-		[SerializeField] private Text m_infoText = null;
+		[SerializeField] private Text m_infoText;
 
 		// name of the Quckmatch Pool configured on the Oculus Developer Dashboard
 		// which is expected to have an associated skill pool

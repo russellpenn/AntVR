@@ -25,10 +25,18 @@ public class KidnappedRobot : MonoBehaviour {
 	private int experiment;
 
 	public GameObject nest;
+    private bool isDead;
 
-	// Use this for initialization
-	void Start () {
-		timeLeft = 299;
+    public behaviour antBehaviour;
+
+    public GameObject compassObject;
+
+    // Use this for initialization
+    void Start () {
+
+        //player.GetComponent<Behaviour>().enabled = false;
+        //player.GetComponent<behaviour>().enabled = false;
+        timeLeft = 299;
 		player = GameObject.FindGameObjectWithTag ("Player");
 	
 
@@ -36,6 +44,8 @@ public class KidnappedRobot : MonoBehaviour {
 		dustInit = true;
 		startTimer = false;
 		isOverbool = false;
+
+        isDead = false;
 
 		experiment = 0;
 	}
@@ -45,7 +55,17 @@ public class KidnappedRobot : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (dustInit) {
+        if (isDead)
+        {
+            player.GetComponent<OVRPlayerController>().enabled = false;
+        }
+
+        if (isDead == false && isOverbool == false)
+        {
+            player.GetComponent<OVRPlayerController>().enabled = true;
+        }
+
+        if (dustInit) {
 			if (dust.GetComponent<ParticleSystem> ().particleCount > 20) {
 				dust.GetComponent<ParticleSystem> ().maxParticles -= 5;
 			} else {
@@ -90,19 +110,24 @@ public class KidnappedRobot : MonoBehaviour {
 			if(currentState == 8){
 				experiment=3;
 			}
-		}else if(currentState == 7|| currentState == 9 ){
+		}else if(currentState == 9 || currentState == 7 ){
 			// test 3 complete, game over
 			startTimer=true;
 			clock.gameObject.SetActive(true);
-		}
-		else if(currentState == 11){
+            Debug.Log("Triggered clock, time left: " + timeLeft);
+        }
+		else if(currentState == 11 || currentState == 4){
 			// test 3 complete, game over
 			changeTexture(5);
 			text.SetActive(true);
-			isOverbool=true;
-		}
-		//clock.text = string.Format ("{0:HH:mm:ss}",timeLeft); 
-	}
+			isOverbool =true;
+            startTimer = false;
+        }
+//        clock.text = string.Format("{0:HH:mm:ss}", timeLeft);
+        clock.text = string.Format("{0}",timeLeft);
+
+        Debug.Log("Current time left (end): " + timeLeft);
+    }
 
 	void changeTexture(int i){
 		Renderer rend = text.GetComponent<Renderer> ();
@@ -120,21 +145,27 @@ public class KidnappedRobot : MonoBehaviour {
 	}
 
 	IEnumerator displayText(){
+
+        antBehaviour.compass.SetActive(false);
 		text.SetActive (true);
-		yield return new WaitForSeconds(5);
+        
+        yield return new WaitForSeconds(3);
 		changeTexture (1);
-		yield return new WaitForSeconds(5);
+        isDead = true;
+        yield return new WaitForSeconds(3);
 		text.SetActive(false);
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(2);
 		changeTexture (2);
 		text.SetActive(true);
-		yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
 		changeTexture (3);
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(2);
 		startTimer = true;
 		clock.gameObject.SetActive (true);
+        isDead = false;
 
-		text.SetActive(false);
+        Debug.Log("Current time left (enum): " + timeLeft);
+        text.SetActive(false);
 	}
 
 

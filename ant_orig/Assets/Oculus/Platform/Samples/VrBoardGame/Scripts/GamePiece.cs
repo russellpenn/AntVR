@@ -5,12 +5,12 @@ namespace Oculus.Platform.Samples.VrBoardGame
 
 	public class GamePiece : MonoBehaviour
 	{
-		[SerializeField] private Piece m_type = Piece.A;
+		[SerializeField] private Piece m_type;
 
 		// Prefab for the game pieces
-		[SerializeField] private GameObject m_prefabA = null;
-		[SerializeField] private GameObject m_prefabB = null;
-		[SerializeField] private GameObject m_prefabPower = null;
+		[SerializeField] private GameObject m_prefabA;
+		[SerializeField] private GameObject m_prefabB;
+		[SerializeField] private GameObject m_prefabPower;
 
 		public enum Piece { A, B, PowerBall }
 

@@ -9,7 +9,10 @@ public class NoFoodZone : MonoBehaviour {
 	private Transform InitialPositionFood;
 	private bool firstCookie;
 
-	void Start(){
+    private Transform toUseTransform;
+    public Transform cupcakePickedPosition;
+
+    void Start(){
 		firstCookie = false;
 	}
 
@@ -18,9 +21,36 @@ public class NoFoodZone : MonoBehaviour {
 		Vector3 position = (player.transform.forward * 15);
 		//position.y = -20;
 
-		Instantiate (foodPrefab, newObjectTransform.position + position , newObjectTransform.rotation);
-		InitialPositionFood = newObjectTransform;
-	}
+		var firstCupcake = Instantiate (foodPrefab, newObjectTransform.position + position , newObjectTransform.rotation);
+
+        InitialPositionFood = newObjectTransform;
+
+
+        var cupcakePicked = Random.Range(1, 3);
+        for (int i = 1; i < 4; i++)
+        {
+            var cupcakeClone = Instantiate(foodPrefab, new Vector3(newObjectTransform.position.x+(i * 70.0F), newObjectTransform.position.y+i * 0.5F, newObjectTransform.position.z+i * 60.0F), newObjectTransform.rotation);
+
+            var cupcakeClones_2 = Instantiate(foodPrefab, new Vector3(newObjectTransform.position.x - (i * 70.0F), newObjectTransform.position.y + i * 0.5F, newObjectTransform.position.z - i * 60.0F), newObjectTransform.rotation);
+
+
+            if (i == cupcakePicked)
+            {
+                cupcakePickedPosition = cupcakeClone.transform;
+            }
+        }
+
+
+
+        
+
+
+    }
+
+    public Transform getCupcakePosition()
+    {
+        return cupcakePickedPosition;
+    }
 
 	public Transform getInitialPositionFood(){
 		Debug.Log ("Initial Position Food: " + InitialPositionFood.position);

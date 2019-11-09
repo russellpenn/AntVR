@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour {
 
@@ -59,7 +60,7 @@ public class StartButton : MonoBehaviour {
 	void Update () {
 		if (start) {
 			if(time<0){
-				Application.LoadLevel("Tutorial");
+				SceneManager.LoadScene("Antworld");
 			}else{
 				time-=Time.deltaTime;
 			}

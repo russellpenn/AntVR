@@ -35,7 +35,7 @@ class OVRLipSyncToolLoader
     public static float totalLengthOfClips;
     public static float totalLengthOfClipsProcessed;
 
-    public static IEnumerator ProcessClips(bool useOfflineModel)
+    public static IEnumerator ProcessClips()
     {
         if (clipQueue == null || clipQueue.Count == 0)
         {
@@ -77,23 +77,13 @@ class OVRLipSyncToolLoader
                 }
             }
 
-            var sequence =
-                OVRLipSyncSequence.CreateSequenceFromAudioClip(clip, useOfflineModel);
+            OVRLipSyncSequence sequence = OVRLipSyncSequence.CreateSequenceFromAudioClip(clip);
             if (sequence != null)
             {
-                var path = AssetDatabase.GetAssetPath(clip);
-                var newPath = path.Replace(Path.GetExtension(path), "_lipSync.asset");
-                var existingSequence = AssetDatabase.LoadAssetAtPath<OVRLipSyncSequence>(newPath);
-                if (existingSequence != null)
-                {
-                    EditorUtility.CopySerialized(sequence, existingSequence);
-                    AssetDatabase.SaveAssets();
-                }
-                else
-                {
-                    AssetDatabase.CreateAsset(sequence, newPath);
-
-                }
+                string path = AssetDatabase.GetAssetPath(clip);
+                string newPath = path.Replace(Path.GetExtension(path), "_lipSync.asset");
+                AssetDatabase.CreateAsset(sequence, newPath);
+                AssetDatabase.ImportAsset(newPath);
             }
             AssetDatabase.Refresh();
 
@@ -110,34 +100,19 @@ class OVRLipSyncToolLoader
 
     static OVRLipSyncToolLoader()
     {
-        processor = null;
+        processor = ProcessClips();
         EditorApplication.update += Update;
     }
     static void Update()
     {
-        if (processor != null)
-        {
-            processor.MoveNext();
-        }
+        processor.MoveNext();
     }
 }
 
 class OVRLipSyncTool
 {
-    [MenuItem("Oculus/Lip Sync/Generate Lip Sync Assets", false, 2000000)]
+    [MenuItem("Tools/Oculus/Generate Lip Sync Assets", false, 2000000)]
     static void GenerateLipSyncAssets()
-    {
-        GenerateLipSyncAssetsInternal(false);
-    }
-
-    [MenuItem("Oculus/Lip Sync/Generate Lip Sync Assets With Offline Model", false, 2500000)]
-    static void GenerateLipSyncAssetsOffline()
-    {
-        GenerateLipSyncAssetsInternal(true);
-    }
-
-    private static void GenerateLipSyncAssetsInternal(bool useOfflineModel)
-
     {
 
         if (OVRLipSyncToolLoader.clipQueue == null)
@@ -161,6 +136,6 @@ class OVRLipSyncTool
             }
         }
 
-        OVRLipSyncToolLoader.processor = OVRLipSyncToolLoader.ProcessClips(useOfflineModel);
+        OVRLipSyncToolLoader.processor = OVRLipSyncToolLoader.ProcessClips();
     }
 }

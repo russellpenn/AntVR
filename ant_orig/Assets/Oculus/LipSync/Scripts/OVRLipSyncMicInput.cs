@@ -77,7 +77,6 @@ public class OVRLipSyncMicInput : MonoBehaviour
     private bool micSelected = false;
     private int minFreq, maxFreq;
     private bool focused = true;
-    private bool initialized = false;
 
     //----------------------------------------------------
     // MONOBEHAVIOUR OVERRIDE FUNCTIONS
@@ -102,28 +101,13 @@ public class OVRLipSyncMicInput : MonoBehaviour
         audioSource.loop = true;     // Set the AudioClip to loop
         audioSource.mute = false;
 
-        InitializeMicrophone();
-    }
-
-    /// <summary>
-    /// Initializes the microphone.
-    /// </summary>
-    private void InitializeMicrophone()
-    {
-        if (initialized)
+        if (Microphone.devices.Length != 0)
         {
-            return;
+            selectedDevice = Microphone.devices[0].ToString();
+            micSelected = true;
+            GetMicCaps();
         }
-        if (Microphone.devices.Length == 0)
-        {
-            return;
-        }
-        selectedDevice = Microphone.devices[0].ToString();
-        micSelected = true;
-        GetMicCaps();
-        initialized = true;
     }
-
 
     /// <summary>
     /// Update this instance.
@@ -143,12 +127,6 @@ public class OVRLipSyncMicInput : MonoBehaviour
         {
             StopMicrophone();
             return;
-        }
-
-        // Lazy Microphone initialization (needed on Android)
-        if (!initialized)
-        {
-            InitializeMicrophone();
         }
 
         audioSource.volume = (micInputVolume / 100);

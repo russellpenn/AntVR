@@ -1,85 +1,100 @@
 //
-// OvrAvatar Mobile combined mesh shader
-// For use on non-expressive face meshes and other components
-// Texture array approach for rendering a combined mesh avatar
-// Coupled with OvrAvatarMaterialManager to populate the texture arrays
+// *** OvrAvatar Mobile Combined Mesh shader ***
+// *** Texture array approach for rendering a combined mesh avatar ***
 //
-// Unity vertex-fragnment implementation
-// Simplified lighting model recommended for use on mobile supporting one directional light
-// Surface shader recommended on PC
+// This is a Unity vertex-fragnment shader implementation for our 1.5 skin shaded avatar look.
+// The benefit of using this version is performance as it bypasses the PBR lighting model and
+// so is generally recommended for use on mobile.
 //
-// Uses transparent queue for fade effects
-//
-// Simple mouth animation with speech done with vertex perturbation
+// This is the texture array version of the shader, which will draw all pre-combined
+// components in one draw call. This is coupled with OvrAvatarMaterialManager to populate the
+// shader properties.
 //
 // Shader keywords:
 // - SECONDARY_LIGHT_ON SECONDARY_LIGHT_OFF
-//   Enable SECONDARY_LIGHT_ON for a second "light" comprised of _SecondaryLightDirection and
-//   _SecondaryLightColor This will influence the rim effect providing a lit contour to the avatar
+//   Enable SECONDARY_LIGHT_ON for a second "light" as expressed by _SecondaryLightDirection
+//   and _SecondaryLightColor to influence the standard rim effect. This is designed for use in video watching
+//   experiences to sample the screen color and apply this to the rim term.
+// - NO_BACKLIGHT_ON NO_BACKLIGHT_OFF
+//   This effect is active by default: NO_BACKLIGHT_OFF is the default and enables the effect. Enable NO_BACKLIGHT_ON
+//   to disable illumination from the rear of the main light direction. This mobile shader supports one directional
+//   light. This can cause the un-illuminated side of the avatar to lose definition.
 //
+// Notes:
+// - The primary light in your scene will be used to calculate lighting.
+// - We don't have a mouth bone, but the vertex shader will animate the vertices around the mouth
+//   area according to the _Voice value. This should be set according to local microphone value
+//   range between 0-1.
 
 Shader "OvrAvatar/Avatar_Mobile_CombinedMesh"
 {
     Properties
     {
-        [NoScaleOffset] _MainTex("Main Texture Array", 2DArray) = "white" {}
-        [NoScaleOffset] _NormalMap("Normal Map Array", 2DArray) = "bump" {}
-        [NoScaleOffset] _RoughnessMap("Roughness Map Array", 2DArray) = "black" {}
+        _MainTex("Main Texture Array", 2DArray) = "white" {}
+        _NormalMap("Normal Map Array", 2DArray) = "bump" {}
+        _RoughnessMap("Roughness Map Array", 2DArray) = "black" {}
 
         _Dimmer("Dimmer", Range(0.0,1.0)) = 1.0
         _Alpha("Alpha", Range(0.0,1.0)) = 1.0
 
-        // Index into the texture array needs an offset for precision
-        _Slices("Texture Array Slices", int) = 4.97
-
-        _Voice("Voice", Range(0.0,1.0)) = 0.0
+        _Voice("Voice", Range(0.0,1.0)) = 1.0
         [HideInInspector] _MouthPosition("Mouth position", Vector) = (0,0,0,1)
         [HideInInspector] _MouthDirection("Mouth direction", Vector) = (0,0,0,1)
         [HideInInspector] _MouthEffectDistance("Mouth Effect Distance", Float) = 0.03
         [HideInInspector] _MouthEffectScale("Mouth Effect Scaler", Float) = 1
 
-        [HideInInspector] _SrcBlend("", Float) = 1
-        [HideInInspector] _DstBlend("", Float) = 0
+        // Index into the texture array needs an offset for precision
+        _Slices("Texture Array Slices", int) = 4.97
     }
 
     SubShader
     {
         Pass
         {
-            Blend [_SrcBlend] [_DstBlend]
+            Tags
+            {
+                "LightMode" = "ForwardBase" "Queue" = "Transparent" "RenderType" = "Transparent" "IgnoreProjector" = "True"
+            }
+            LOD 100
+            ZWrite On
+            ZTest LEqual
             Cull Back
+            ColorMask RGB
+            Blend SrcAlpha OneMinusSrcAlpha
             CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            #pragma target 3.5
-            #pragma fragmentoption ARB_precision_hint_fastest
-            #pragma multi_compile SECONDARY_LIGHT_OFF SECONDARY_LIGHT_ON
-            #include "UnityCG.cginc"
-            #include "UnityLightingCommon.cginc"
+        #pragma vertex vert
+        #pragma fragment frag
+        #pragma target 3.5
+        #pragma fragmentoption ARB_precision_hint_fastest
+        #pragma multi_compile SECONDARY_LIGHT_OFF SECONDARY_LIGHT_ON
+        #pragma multi_compile BACKLIGHT_OFF BACKLIGHT_ON
+        #include "UnityCG.cginc"
+        #include "UnityLightingCommon.cginc"
 
             UNITY_DECLARE_TEX2DARRAY(_MainTex);
             UNITY_DECLARE_TEX2DARRAY(_NormalMap);
-            float4 _NormalMap_ST;
+            uniform float4 _NormalMap_ST;
             UNITY_DECLARE_TEX2DARRAY(_RoughnessMap);
 
-            int _Slices;
+            uniform int _Slices;
 
-            half _Dimmer;
-            half _Alpha;
+            uniform float4 _BaseColor[5];
+            uniform float _DiffuseIntensity[5];
+            uniform float _RimIntensity[5];
+            uniform float _BacklightIntensity[5];
+            uniform float _ReflectionIntensity[5];
 
-            half4 _BaseColor[5];
-            half _DiffuseIntensity[5];
-            half _RimIntensity[5];
-            half _ReflectionIntensity[5];
+            uniform float3 _SecondaryLightDirection;
+            uniform float4 _SecondaryLightColor;
 
-            half3 _SecondaryLightDirection;
-            half4 _SecondaryLightColor;
+            uniform float _Dimmer;
+            uniform float _Alpha;
 
-            half _Voice;
-            half4 _MouthPosition;
-            half4 _MouthDirection;
-            half _MouthEffectDistance;
-            half _MouthEffectScale;
+            uniform float _Voice;
+            uniform float4 _MouthPosition;
+            uniform float4 _MouthDirection;
+            uniform float _MouthEffectDistance;
+            uniform float _MouthEffectScale;
 
             static const fixed MOUTH_ZSCALE = 0.5f;
             static const fixed MOUTH_DROPOFF = 0.01f;
@@ -107,14 +122,14 @@ Shader "OvrAvatar/Avatar_Mobile_CombinedMesh"
             {
                 v2f o;
 
-                // Mouth vertex animation with voice
-                float4 worldVert = mul(unity_ObjectToWorld, v.vertex);
+                // Mouth vertex animation with voip
+                float4 worldVert = mul(unity_ObjectToWorld, v.vertex);;
                 float3 delta = _MouthPosition - worldVert;
                 delta.z *= MOUTH_ZSCALE;
-                half dist = length(delta);
-                half scaledMouthDropoff = _MouthEffectScale * MOUTH_DROPOFF;
-                half scaledMouthEffect = _MouthEffectScale * _MouthEffectDistance;
-                half displacement = _Voice * smoothstep(scaledMouthEffect + scaledMouthDropoff, scaledMouthEffect, dist);
+                float dist = length(delta);
+                float scaledMouthDropoff = _MouthEffectScale * MOUTH_DROPOFF;
+                float scaledMouthEffect = _MouthEffectScale * _MouthEffectDistance;
+                float displacement = _Voice * smoothstep(scaledMouthEffect + scaledMouthDropoff, scaledMouthEffect, dist);
                 worldVert.xyz -= _MouthDirection * displacement;
                 v.vertex = mul(unity_WorldToObject, worldVert);
 
@@ -132,23 +147,24 @@ Shader "OvrAvatar/Avatar_Mobile_CombinedMesh"
 
             fixed4 frag(v2f i) : COLOR
             {
-                // Diffuse texture sample
-                float4 albedoColor = UNITY_SAMPLE_TEX2DARRAY(_MainTex, i.uv);
+                // Light direction
+                float3 lightDirection = _WorldSpaceLightPos0.xyz;
 
-                // Process normal map
+                // Unpack normal map
                 float3 transformedNormalUV = i.uv;
                 transformedNormalUV.xy = float2(TRANSFORM_TEX(i.uv.xy, _NormalMap));
-                float3 normalMap = UNITY_SAMPLE_TEX2DARRAY(_NormalMap, transformedNormalUV) * 2.0 - 1.0;
+                float3 normalMap = UNITY_SAMPLE_TEX2DARRAY(_NormalMap, transformedNormalUV).rgb * 2 - 1;
+
+                // Calculate normal
                 float3x3 tangentTransform = float3x3(i.tangentDir, i.bitangentDir, i.normalDir);
                 float3 normalDirection = normalize(mul(normalMap.rgb, tangentTransform));
-                
-                // Roughness contains metallic in r, smoothness in a, mask region in b and mask control in g
-                half4 roughnessTex = UNITY_SAMPLE_TEX2DARRAY(_RoughnessMap, i.uv);
+                float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
 
-                // Normal/Light/View calculations
-                half3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
-                half VdotN = saturate(dot(viewDirection, normalDirection));
-                half NdotL = saturate(dot(normalDirection, _WorldSpaceLightPos0.xyz));
+                // Apply view, normal, and lighting dependent terms
+                float VdotN = saturate(dot(viewDirection, normalDirection));
+                float NdotL = saturate(dot(normalDirection, lightDirection));
+
+                float LightColorNdotL = NdotL * _LightColor0;
 
                 // Sample the default reflection cubemap using the reflection vector
                 float3 worldReflection = reflect(-viewDirection, normalDirection);
@@ -156,49 +172,44 @@ Shader "OvrAvatar/Avatar_Mobile_CombinedMesh"
                 // Decode cubemap data into actual color
                 half3 reflectionColor = DecodeHDR(skyData, unity_SpecCube0_HDR);
 
+                // Calculate color for each component
+                float4 col;
                 // Get index into texture array
                 int componentIndex = floor(i.uv.z + 0.5);
-
-                // Base color from array
-                float4 baseColor = _BaseColor[componentIndex];
-
-                // Diffuse intensity from array
-                half diffuseIntensity = _DiffuseIntensity[componentIndex];
-
-                // Multiply in base color
-                albedoColor.rgb *= baseColor.rgb;
-
-                // Lerp diffuseIntensity with roughness map
-                diffuseIntensity = lerp(diffuseIntensity, 1.0, roughnessTex.a);
-
-                // Apply main light with a lerp between DiffuseIntensity and 1 based on the roughness
-                albedoColor.rgb += diffuseIntensity * NdotL * _LightColor0;
-
-                // Reflection from cubemap
-                albedoColor.rgb += reflectionColor * (roughnessTex.a * _ReflectionIntensity[componentIndex]) * NdotL;
-
+                // Diffuse texture sample
+                col = UNITY_SAMPLE_TEX2DARRAY(_MainTex, i.uv);
+                // Multiply in color tint (don't need to deal with gamma/linear here as conversion already done)
+                col.rgb *= _BaseColor[componentIndex];
+                // Main light
+                col.rgb += _DiffuseIntensity[componentIndex] * LightColorNdotL;
+        #ifdef NO_BACKLIGHT_ON
+                //NO_BACKLIGHT_ON disables the rear illumination
+        #else
+                // Illuminate from behind
+                float3 reverseLightDirection = lightDirection * -1;
+                float NdotInvL = saturate(dot(normalDirection, normalize(reverseLightDirection)));
+                col.rgb += (_DiffuseIntensity[componentIndex] * _BacklightIntensity[componentIndex]) * NdotInvL * _LightColor0;
+        #endif
                 // Rim term
-#ifdef SECONDARY_LIGHT_ON
+        #ifdef SECONDARY_LIGHT_ON
                 // Secondary light proxy (direction and color) passed into the rim term
                 NdotL = saturate(dot(normalDirection, _SecondaryLightDirection));
-                albedoColor.rgb += pow(1.0 - VdotN, _RimIntensity[componentIndex]) * NdotL * _SecondaryLightColor;
-#else
-                albedoColor.rgb += pow(1.0 - VdotN, _RimIntensity[componentIndex]) * NdotL;
-#endif
+                col.rgb += pow(1.0 - VdotN, _RimIntensity[componentIndex]) * NdotL * _SecondaryLightColor;
+        #else
+                col.rgb += pow(1.0 - VdotN, _RimIntensity[componentIndex]) * LightColorNdotL;
+        #endif
+                // Reflection
+                col.rgb += reflectionColor * UNITY_SAMPLE_TEX2DARRAY(_RoughnessMap, i.uv).a * _ReflectionIntensity[componentIndex];
 
                 // Global dimmer
-                albedoColor.rgb *= _Dimmer;
-
-#if !defined(UNITY_COLORSPACE_GAMMA)
-                albedoColor.rgb = GammaToLinearSpace(albedoColor.rgb);
-#endif
-                albedoColor.rgb = saturate(albedoColor.rgb);
-
-                // Set alpha, with special case for lashes
-                albedoColor.a *= _Alpha;
-
+                col.rgb *= _Dimmer;
+                // Global alpha
+                col.a *= _Alpha;
+        #if !defined(UNITY_COLORSPACE_GAMMA)
+                col.rgb = GammaToLinearSpace(col.rgb);
+        #endif
                 // Return clamped final color
-                return albedoColor;
+                return saturate(col);
             }
             ENDCG
         }

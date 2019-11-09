@@ -80,11 +80,13 @@ public class Tutorial : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        OVRInput.Update();
+
 		if (changeState) {
 			checkState (state);
 			changeState = false;
 		} else{
-			if (OVRGamepadController.GPC_GetButtonUp (OVRGamepadController.Button.X) && controllerActive) {
+			if (OVRInput.Get(OVRInput.Button.Three)) {
 				state+=1;
 				Debug.Log("Entre a X" + state);
 				changeState = true;
@@ -96,7 +98,7 @@ public class Tutorial : MonoBehaviour {
 		}
 
 		if(init){
-			if (OVRGamepadController.GPC_GetButtonUp (OVRGamepadController.Button.B)) {
+			if (OVRInput.Get(OVRInput.Button.Two)) {
 				blackScreen.SetActive(true);
 				Application.LoadLevel("AntWorldHD");
 			}

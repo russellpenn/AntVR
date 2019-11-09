@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{A05D38C4-2D98-F0A0-1628-9B61925A5DC4}</ProjectGuid>
+    <ProjectGuid>{E8336C68-D90C-3F6A-787F-7FD5BF2E85BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Oculus.VR.Editor</AssemblyName>
@@ -55,11 +55,8 @@
   <ItemGroup>
      <Compile Include="Assets\Oculus\VR\Editor\OVRADBTool.cs" />
      <Compile Include="Assets\Oculus\VR\Editor\OVRBuild.cs" />
-     <Compile Include="Assets\Oculus\VR\Editor\OVRConfig.cs" />
      <Compile Include="Assets\Oculus\VR\Editor\OVRDeviceSelector.cs" />
-     <Compile Include="Assets\Oculus\VR\Editor\OVRDirectorySyncer.cs" />
      <Compile Include="Assets\Oculus\VR\Editor\OVREngineConfigurationUpdater.cs" />
-     <Compile Include="Assets\Oculus\VR\Editor\OVRExpansionFileGenerator.cs" />
      <Compile Include="Assets\Oculus\VR\Editor\OVRGradleGeneration.cs" />
      <Compile Include="Assets\Oculus\VR\Editor\OVRLayerAttributeEditor.cs" />
      <Compile Include="Assets\Oculus\VR\Editor\OVRManifestPreprocessor.cs" />
@@ -70,7 +67,6 @@
      <Compile Include="Assets\Oculus\VR\Editor\OVRProjectConfig.cs" />
      <Compile Include="Assets\Oculus\VR\Editor\OVRScreenshotWizard.cs" />
      <Compile Include="Assets\Oculus\VR\Editor\OVRSystemProfilerPanel.cs" />
-     <Compile Include="Assets\Oculus\VR\Editor\PathHelper.cs" />
      <None Include="Assets\Oculus\VR\Editor\AndroidManifest.OVRSubmission.xml" />
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -313,7 +309,7 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="System.Drawing">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Assets/msc2017/assetstore/capturepanorama/Managed Plugins/System.Drawing.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Assets/msc2017/Assetstore/CapturePanorama/Managed Plugins/System.Drawing.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Users/hamsa/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -360,7 +356,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Oculus.VR.csproj">
-      <Project>{E6F7AF4B-83CD-3779-325C-61CDADB1725F}</Project>      <Name>Oculus.VR</Name>    </ProjectReference>
+      <Project>{D41420CF-9B9F-8A83-FA1E-DEAEC88FCEE8}</Project>      <Name>Oculus.VR</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

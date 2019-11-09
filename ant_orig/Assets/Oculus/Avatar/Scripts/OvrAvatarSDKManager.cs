@@ -37,20 +37,24 @@ public class OvrAvatarSDKManager : MonoBehaviour
 
     private void Initialize()
     {
-        string appId = GetAppId();
-
+#if UNITY_ANDROID && !UNITY_EDITOR
+        string appId = OvrAvatarSettings.GearAppID;
         if (appId == "")
         {
-          AvatarLogger.Log("No Oculus App ID has been provided for target platform. " + 
-            "Go to Oculus Avatar > Edit Configuration to supply one", OvrAvatarSettings.Instance);
-          appId = "0";
+            AvatarLogger.Log("No Gear VR App ID has been provided. Go to Oculus Avatar > Edit Configuration to supply one", OvrAvatarSettings.Instance);
+            appId = "0";
         }
 
-#if UNITY_ANDROID && !UNITY_EDITOR
         CAPI.ovrAvatar_InitializeAndroidUnity(appId);
 #else
+        string appId = OvrAvatarSettings.AppID;
+        if (appId == "")
+        {
+            AvatarLogger.Log("No Oculus Rift App ID has been provided. Go to Oculus Avatar > Edit Configuration to supply one", OvrAvatarSettings.Instance);
+            appId = "0";
+        }
+
         CAPI.ovrAvatar_Initialize(appId);
-        CAPI.SendEvent("initialize", appId);
 #endif
         specificationCallbacks = new Dictionary<UInt64, HashSet<specificationCallback>>();
         assetLoadedCallbacks = new Dictionary<UInt64, HashSet<assetLoadedCallback>>();
@@ -170,8 +174,7 @@ public class OvrAvatarSDKManager : MonoBehaviour
         ovrAvatarAssetLevelOfDetail lod,
         bool forceMobileTextureFormat,
         ovrAvatarLookAndFeelVersion lookVersion,
-        ovrAvatarLookAndFeelVersion fallbackVersion,
-        bool enableExpressive)
+        ovrAvatarLookAndFeelVersion fallbackVersion)
     {
         CAPI.ovrAvatar_SetForceASTCTextures(forceMobileTextureFormat);
 
@@ -186,7 +189,6 @@ public class OvrAvatarSDKManager : MonoBehaviour
             CAPI.ovrAvatarSpecificationRequest_SetFallbackLookAndFeelVersion(specRequest, fallbackVersion);
             CAPI.ovrAvatarSpecificationRequest_SetLevelOfDetail(specRequest, lod);
             CAPI.ovrAvatarSpecificationRequest_SetCombineMeshes(specRequest, useCombinedMesh);
-            CAPI.ovrAvatarSpecificationRequest_SetExpressiveFlag(specRequest, enableExpressive);
             CAPI.ovrAvatar_RequestAvatarSpecificationFromSpecRequest(specRequest);
             CAPI.ovrAvatarSpecificationRequest_Destroy(specRequest);
         }
@@ -239,11 +241,5 @@ public class OvrAvatarSDKManager : MonoBehaviour
         {
             return null;
         }
-    }
-
-    public string GetAppId()
-    {
-        return UnityEngine.Application.platform == RuntimePlatform.Android ?
-                OvrAvatarSettings.MobileAppID : OvrAvatarSettings.AppID;
     }
 }

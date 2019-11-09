@@ -15,6 +15,7 @@ public class GuardianBoundaryEnforcer : MonoBehaviour
 
     public bool m_AllowRecenter = true;
     public OVRCameraRig m_mainCamera;
+    public Color m_boundaryColor;
 
     // Stores one tracker's initial orientation on launch, so we can track how orientation changes later
     // due to user-initiated reorient. Which tracker we use is not actually important, we just need a
@@ -36,6 +37,9 @@ public class GuardianBoundaryEnforcer : MonoBehaviour
 	void Start ()
     {
         OVRManager.display.RecenteredPose += Recentered;
+        OVRBoundary.BoundaryLookAndFeel lookAndFeel;
+        lookAndFeel.Color = m_boundaryColor;
+        OVRManager.boundary.SetLookAndFeel(lookAndFeel);
 
         m_originalTrackerOrientation = OVRPlugin.GetNodePose(OVRPlugin.Node.TrackerZero, OVRPlugin.Step.Render).ToOVRPose().orientation;
 	}

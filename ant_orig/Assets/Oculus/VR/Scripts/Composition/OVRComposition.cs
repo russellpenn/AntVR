@@ -14,31 +14,12 @@ ANY KIND, either express or implied. See the License for the specific language g
 permissions and limitations under the License.
 ************************************************************************************/
 
-#if UNITY_ANDROID && !UNITY_EDITOR
-#define OVR_ANDROID_MRC
-#endif
-
 using UnityEngine;
 using System.Collections;
 
-#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_ANDROID
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
 
 public abstract class OVRComposition {
-
-	public bool cameraInTrackingSpace = false;
-	public OVRCameraRig cameraRig = null;
-
-	protected OVRComposition(GameObject parentObject, Camera mainCamera)
-	{
-		OVRCameraRig cameraRig = mainCamera.GetComponentInParent<OVRCameraRig>();
-		if (cameraRig == null)
-		{
-			cameraRig = parentObject.GetComponent<OVRCameraRig>();
-		}
-		cameraInTrackingSpace = (cameraRig != null && cameraRig.trackingSpace != null);
-		this.cameraRig = cameraRig;
-		Debug.Log(cameraRig == null ? "[OVRComposition] CameraRig not found" : "[OVRComposition] CameraRig found");
-	}
 
 	public abstract OVRManager.CompositionMethod CompositionMethod();
 
@@ -50,22 +31,12 @@ public abstract class OVRComposition {
 	protected bool usingLastAttachedNodePose = false;
 	protected OVRPose lastAttachedNodePose = new OVRPose();            // Sometimes the attach node pose is not readable (lose tracking, low battery, etc.) Use the last pose instead when it happens
 
-	public OVRPose ComputeCameraWorldSpacePose(OVRPlugin.CameraExtrinsics extrinsics, OVRPlugin.Posef calibrationRawPose)
+	public OVRPose ComputeCameraWorldSpacePose(OVRPlugin.CameraExtrinsics extrinsics)
 	{
-		OVRPose trackingSpacePose = ComputeCameraTrackingSpacePose(extrinsics, calibrationRawPose);
-		OVRPose worldSpacePose = OVRExtensions.ToWorldSpacePose(trackingSpacePose);
-		return worldSpacePose;
-	}
-
-	public OVRPose ComputeCameraTrackingSpacePose(OVRPlugin.CameraExtrinsics extrinsics, OVRPlugin.Posef calibrationRawPose)
-	{
+		OVRPose worldSpacePose = new OVRPose();
 		OVRPose trackingSpacePose = new OVRPose();
 
 		OVRPose cameraTrackingSpacePose = extrinsics.RelativePose.ToOVRPose();
-#if OVR_ANDROID_MRC
-		OVRPose rawPose = OVRPlugin.GetTrackingTransformRawPose().ToOVRPose();
-		cameraTrackingSpacePose = rawPose * (calibrationRawPose.ToOVRPose().Inverse() * cameraTrackingSpacePose);
-#endif
 		trackingSpacePose = cameraTrackingSpacePose;
 
 		if (extrinsics.AttachedToNode != OVRPlugin.Node.None && OVRPlugin.GetNodePresent(extrinsics.AttachedToNode))
@@ -92,7 +63,8 @@ public abstract class OVRComposition {
 			}
 		}
 
-		return trackingSpacePose;
+		worldSpacePose = OVRExtensions.ToWorldSpacePose(trackingSpacePose);
+		return worldSpacePose;
 	}
 
 }

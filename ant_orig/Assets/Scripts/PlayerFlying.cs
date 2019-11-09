@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PlayerFlying : MonoBehaviour {
 
@@ -8,7 +9,7 @@ public class PlayerFlying : MonoBehaviour {
 	private Quaternion tempRot;
 
 	public Transform initialPosition;
-	private Transform respawnPosition;
+	public Transform respawnPosition;
 
 	public Compass compass;
 	public GameObject blackScreen;
@@ -42,9 +43,17 @@ public class PlayerFlying : MonoBehaviour {
 		Debug.Log ("generando nueva position");
 		switch (currentState) {
 		case 3: //Experiment 1 respawn in food location (known location)
-			respawnPosition = player.GetComponent<behaviour> ().getFoodObject ().transform;
-			break;
-		case 6: // Experiment 2 respawn near food location (familiar location)
+             Transform temp2 = player.GetComponent<behaviour>().getFoodObject().transform;
+             Vector3 tempValues2 = temp2.position;
+
+
+             tempValues2.x *= UnityEngine.Random.Range(-2, 2);
+             tempValues2.z *= UnityEngine.Random.Range(-2, 2);
+             temp2.position = tempValues2;
+             respawnPosition = temp2;
+
+            break;
+        case 6: // Experiment 2 respawn near food location (familiar location)
 			Transform temp = player.GetComponent<behaviour> ().getFoodObject ().transform;
 			Vector3 tempValues = temp.position;
 			
@@ -54,13 +63,13 @@ public class PlayerFlying : MonoBehaviour {
 			respawnPosition = temp;
 			break;
 		case 9: // Experiment 3 respawn oposite of food location (unknown location)
-			Transform temp2 = player.GetComponent<behaviour> ().getFoodObject ().transform;
-			Vector3 tempValues2 = temp2.position;
+			//Transform temp2 = player.GetComponent<behaviour> ().getFoodObject ().transform;
+			//Vector3 tempValues2 = temp2.position;
 			
-			tempValues2.x*=-1;
-			tempValues2.z*=-1;
-			temp2.position = tempValues2;
-			respawnPosition = temp2;
+			//tempValues2.x*=-1;
+			//tempValues2.z*=-1;
+			//temp2.position = tempValues2;
+			//respawnPosition = temp2;
 			break;
 		}
 	}
@@ -77,7 +86,7 @@ public class PlayerFlying : MonoBehaviour {
 			setRespawnPosition ();
 			
 
-			Debug.Log ("Food Position: "+respawnPosition.position);
+			Debug.Log ("Respawned Position: "+respawnPosition.position);
 
 			//player.GetComponent<behaviour>().getFoodObject().transform.position = GameObject.FindGameObjectWithTag("NoFoodZone").GetComponent<NoFoodZone>().getInitialPositionFood().position;
 			player.GetComponent<OVRPlayerController>().enabled=false;
@@ -88,18 +97,21 @@ public class PlayerFlying : MonoBehaviour {
 
 
 
-		float distance = transform.position.x - respawnPosition.position.x;
+		float distance =  respawnPosition.position.x - transform.position.x;
+        Debug.Log("Distance: " + distance);
+        Debug.Log("tposx: " + transform.position.x);
+        Debug.Log("rposx: " + respawnPosition.position.x);
 
-		// If posicion del jugador y del respawn estan cerca desactivar este script y activar otro de WindMovement y Respawn
-		if (distance > 5) {
+        // If posicion del jugador y del respawn estan cerca desactivar este script y activar otro de WindMovement y Respawn
+        if (Math.Abs(distance) > 5) {
 			Vector3 currentPos = Vector3.Lerp (initialPosition.position, respawnPosition.position, 0.02f);
 			currentPos.y += trajectoryHeight * Mathf.Sin (Mathf.Clamp01 (0.02f) * Mathf.PI);
 			if(trajectoryHeight<10){
 				trajectoryHeight-=1f;
 			}
 
-
-			transform.position = currentPos;
+            Debug.Log("Current positiom: " + currentPos);
+            transform.position = currentPos;
 
 			//transform.Rotate(new Vector3(30*Time.deltaTime,30*Time.deltaTime,30*Time.deltaTime));
 
@@ -111,7 +123,7 @@ public class PlayerFlying : MonoBehaviour {
 			transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
 			//transform.Rotate(new Vector3(0,0,-10));
 			player.GetComponent<OVRPlayerController>().enabled=true;
-			player.GetComponent<behaviour> ().increaseState ();
+			//player.GetComponent<behaviour> ().increaseState ();
 			// New compass position
 			compass.setTarget(respawnPosition);
 
@@ -119,8 +131,11 @@ public class PlayerFlying : MonoBehaviour {
 
 			GameObject.FindGameObjectWithTag("Tornado").transform.position = nest.transform.position;
 			GameObject.FindGameObjectWithTag("Tornado").SetActive(false);
-			//GameObject.FindGameObjectWithTag("SandStorm").SetActive(false);
-			player.GetComponent<KidnappedRobot>().enabled=true;
+
+            Debug.Log("Distance <5 Position: ");
+
+            //GameObject.FindGameObjectWithTag("SandStorm").SetActive(false);
+            player.GetComponent<KidnappedRobot>().enabled=true;
 
 		}
 

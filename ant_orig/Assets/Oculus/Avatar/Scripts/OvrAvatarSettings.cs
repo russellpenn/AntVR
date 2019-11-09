@@ -11,7 +11,7 @@ public sealed class OvrAvatarSettings : ScriptableObject {
         set { Instance.ovrAppID = value; }
     }
 
-    public static string MobileAppID
+    public static string GearAppID
     {
         get { return Instance.ovrGearAppID; }
         set { Instance.ovrGearAppID = value; }

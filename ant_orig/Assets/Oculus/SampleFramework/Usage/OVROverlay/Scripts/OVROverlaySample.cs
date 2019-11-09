@@ -53,6 +53,7 @@ namespace OculusSampleFramework
         /// <summary>
         /// Toggle references
         /// </summary>
+        Toggle overlayRadioButton;
         Toggle applicationRadioButton;
         Toggle noneRadioButton;
         
@@ -90,6 +91,12 @@ namespace OculusSampleFramework
         public Texture compositorLabelTexture;
 
         /// <summary>
+        /// Indicate current ui display type
+        /// </summary>
+        EUiDisplayType desiredUiType = EUiDisplayType.EUDT_OverlayQuad;
+
+
+        /// <summary>
         /// The resources & settings needed for the level loading simulation demo
         /// </summary>
         [Header("Level Loading Sim Settings")]
@@ -115,13 +122,14 @@ namespace OculusSampleFramework
             DebugUIBuilder.instance.AddButton("Destroy Cubes", TriggerUnload);
             DebugUIBuilder.instance.AddDivider();
             DebugUIBuilder.instance.AddLabel("OVROverlay vs. Application Render Comparison");
-            DebugUIBuilder.instance.AddRadio("OVROverlay", "group", delegate (Toggle t) { RadioPressed(ovrOverlayID, "group", t); }).GetComponentInChildren<Toggle>();
+            overlayRadioButton = DebugUIBuilder.instance.AddRadio("OVROverlay", "group", delegate (Toggle t) { RadioPressed(ovrOverlayID, "group", t); }).GetComponentInChildren<Toggle>();
             applicationRadioButton = DebugUIBuilder.instance.AddRadio("Application", "group", delegate (Toggle t) { RadioPressed(applicationID, "group", t); }).GetComponentInChildren<Toggle>();
             noneRadioButton = DebugUIBuilder.instance.AddRadio("None", "group", delegate (Toggle t) { RadioPressed(noneID, "group", t); }).GetComponentInChildren<Toggle>();
         
             DebugUIBuilder.instance.Show();
 
             // Start with Overlay Quad
+            desiredUiType = EUiDisplayType.EUDT_OverlayQuad;
             CameraAndRenderTargetSetup();
             cameraRenderOverlay.enabled = true;
             cameraRenderOverlay.currentOverlayShape = OVROverlay.OverlayShape.Quad;
@@ -159,6 +167,7 @@ namespace OculusSampleFramework
             cameraRenderOverlay.enabled = false;
             renderingLabelOverlay.enabled = true;
             renderingLabelOverlay.textures[0] = applicationLabelTexture;
+            desiredUiType = EUiDisplayType.EUDT_WorldGeoQuad;
             Debug.Log("Switched to ActivateWorldGeo");
         }
 
@@ -173,6 +182,7 @@ namespace OculusSampleFramework
             uiGeoParent.SetActive(true);
             renderingLabelOverlay.enabled = true;
             renderingLabelOverlay.textures[0] = compositorLabelTexture;
+            desiredUiType = EUiDisplayType.EUDT_OverlayQuad;
             Debug.Log("Switched to ActivateOVROVerlay");
         }
 
@@ -186,6 +196,7 @@ namespace OculusSampleFramework
             cameraRenderOverlay.enabled = false;
             uiGeoParent.SetActive(false);
             renderingLabelOverlay.enabled = false;
+            desiredUiType = EUiDisplayType.EUDT_None;
             Debug.Log("Switched to ActivateNone");
         }
 
@@ -293,7 +304,7 @@ namespace OculusSampleFramework
 #if UNITY_5_5_OR_NEWER
             overlayRT.autoGenerateMips = true;
 #else
-		overlayRT.autoGenerateMips = true;
+		overlayRT.generateMips = true;
 #endif
             uiCamera.GetComponent<Camera>().targetTexture = overlayRT;
 

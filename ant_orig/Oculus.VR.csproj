@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E6F7AF4B-83CD-3779-325C-61CDADB1725F}</ProjectGuid>
+    <ProjectGuid>{D41420CF-9B9F-8A83-FA1E-DEAEC88FCEE8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Oculus.VR</AssemblyName>
@@ -78,9 +78,7 @@
      <Compile Include="Assets\Oculus\VR\Scripts\OVRPlugin.cs" />
      <Compile Include="Assets\Oculus\VR\Scripts\OVRProfile.cs" />
      <Compile Include="Assets\Oculus\VR\Scripts\OVRTracker.cs" />
-     <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRAudioSourceTest.cs" />
      <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRChromaticAberration.cs" />
-     <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRControllerHelper.cs" />
      <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRCubemapCapture.cs" />
      <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRCursor.cs" />
      <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRDebugInfo.cs" />
@@ -105,6 +103,7 @@
      <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRSceneSampleController.cs" />
      <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRScreenFade.cs" />
      <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRSystemPerfMetrics.cs" />
+     <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRTrackedRemote.cs" />
      <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRWaitCursor.cs" />
      <Compile Include="Assets\Oculus\VR\ThirdParty\openvr_api.cs" />
      <Compile Include="Assets\Oculus\VR\ThirdParty\SimpleJSON.cs" />
@@ -363,7 +362,7 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="System.Drawing">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Assets/msc2017/assetstore/capturepanorama/Managed Plugins/System.Drawing.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Assets/msc2017/Assetstore/CapturePanorama/Managed Plugins/System.Drawing.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Users/hamsa/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>

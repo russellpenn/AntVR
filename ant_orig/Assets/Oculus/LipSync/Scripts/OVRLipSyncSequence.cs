@@ -20,10 +20,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ************************************************************************************/
-using System;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Threading;
 
 // Sequence - holds ordered entries for playback
 [System.Serializable]
@@ -37,6 +36,7 @@ public class OVRLipSyncSequence : ScriptableObject
         OVRLipSync.Frame frame = null;
         if (time < length && entries.Count > 0)
         {
+            // todo: we could blend frame output here if we wanted.
             float percentComplete = time / length;
             frame = entries[(int)(entries.Count * percentComplete)];
         }
@@ -47,8 +47,7 @@ public class OVRLipSyncSequence : ScriptableObject
 
     private static readonly int sSampleSize = 1024;
 
-    public static OVRLipSyncSequence CreateSequenceFromAudioClip(
-        AudioClip clip, bool useOfflineModel = false)
+    public static OVRLipSyncSequence CreateSequenceFromAudioClip(AudioClip clip)
     {
         OVRLipSyncSequence sequence = null;
 
@@ -81,13 +80,8 @@ public class OVRLipSyncSequence : ScriptableObject
         }
 
         uint context = 0;
-
-        OVRLipSync.Result result = useOfflineModel
-            ? OVRLipSync.CreateContextWithModelFile(
-                ref context,
-                OVRLipSync.ContextProviders.Enhanced,
-                Path.Combine(Application.dataPath, "Oculus/LipSync/Assets/OfflineModel/ovrlipsync_offline_model.pb"))
-            : OVRLipSync.CreateContext(ref context, OVRLipSync.ContextProviders.Enhanced);
+        OVRLipSync.Result result =
+            OVRLipSync.CreateContext(ref context, OVRLipSync.ContextProviders.Enhanced);
 
         if (result != OVRLipSync.Result.Success)
         {
@@ -98,34 +92,15 @@ public class OVRLipSyncSequence : ScriptableObject
 
         List<OVRLipSync.Frame> frames = new List<OVRLipSync.Frame>();
         float[] samples = new float[sSampleSize * clip.channels];
-
-        OVRLipSync.Frame dummyFrame = new OVRLipSync.Frame();
-        OVRLipSync.ProcessFrame(
-            context,
-            samples,
-            dummyFrame,
-            (clip.channels == 2) ? true : false
-        );
-        // frame delay in ms
-        float frameDelayInMs = dummyFrame.frameDelay;
-
-        int frameOffset = (int)(frameDelayInMs * clip.frequency / 1000);
-
         int totalSamples = clip.samples;
-        for (int x = 0; x < totalSamples + frameOffset; x += sSampleSize)
+        for (int x = 0; x < totalSamples; x += sSampleSize)
         {
-            int remainingSamples = totalSamples - x;
-            if (remainingSamples >= sSampleSize) {
-              clip.GetData(samples, x);
-            } else if (remainingSamples > 0) {
-              float[] samples_clip = new float[remainingSamples * clip.channels];
-              clip.GetData(samples_clip, x);
-              Array.Copy(samples_clip, samples, samples_clip.Length);
-              Array.Clear(samples, samples_clip.Length, samples.Length - samples_clip.Length);
-            } else {
-              Array.Clear(samples, 0, samples.Length);
+            // GetData loops at the end of the read.  Prevent that when it happens.
+            if (x + samples.Length > totalSamples)
+            {
+                samples = new float[(totalSamples - x) * clip.channels];
             }
-
+            clip.GetData(samples, x);
             OVRLipSync.Frame frame = new OVRLipSync.Frame();
             if (clip.channels == 2)
             {
@@ -135,12 +110,7 @@ public class OVRLipSyncSequence : ScriptableObject
             else
             {
                 // mono
-                OVRLipSync.ProcessFrame(context, samples, frame, false);
-            }
-
-            if (x < frameOffset)
-            {
-                continue;
+                OVRLipSync.ProcessFrame(context, samples, frame, OVRLipSync.AudioDataType.F32_Mono);
             }
 
             frames.Add(frame);

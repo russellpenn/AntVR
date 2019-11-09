@@ -11,16 +11,16 @@ namespace Oculus.Platform.Samples.VrVoiceChat
 	public class PlatformManager : MonoBehaviour
 	{
 		// the game object to build the invite list in
-		[SerializeField] private GameObject m_invitesList = null;
+		[SerializeField] private GameObject m_invitesList;
 
 		// Button to create for the user to answer an invite call
-		[SerializeField] private GameObject m_invitePrefab = null;
+		[SerializeField] private GameObject m_invitePrefab;
 
 		// State transition sets the background color as a visual status indication
-		[SerializeField] private Camera m_camera = null;
+		[SerializeField] private Camera m_camera;
 
 		// GameObject that represents the Head of the remote Avatar
-		[SerializeField] private GameObject m_remoteHead = null;
+		[SerializeField] private GameObject m_remoteHead;
 
 		private State m_currentState;
 

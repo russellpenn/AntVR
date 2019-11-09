@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{470B5BC3-A540-1BE8-3DDC-82F6E814AC07}</ProjectGuid>
+    <ProjectGuid>{5691212E-6F86-3506-511A-2AB454EDE23C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -54,8 +54,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
-     <Compile Include="Assets\msc2017\assetstore\thetopicbirdtools\ScreenshotCreator\Editor\ScreenshotCreatorEditor.cs" />
-     <Compile Include="Assets\msc2017\assetstore\thetopicbirdtools\ScreenshotCreator\Editor\ScreenshotCreatorWindow.cs" />
+     <Compile Include="Assets\msc2017\Assetstore\TheTopicbirdTools\ScreenshotCreator\Editor\ScreenshotCreatorEditor.cs" />
+     <Compile Include="Assets\msc2017\Assetstore\TheTopicbirdTools\ScreenshotCreator\Editor\ScreenshotCreatorWindow.cs" />
      <Compile Include="Assets\Oculus\AudioManager\Scripts\Audio\Editor\AudioImportPostProcessor.cs" />
      <Compile Include="Assets\Oculus\AudioManager\Scripts\Audio\Editor\AudioManagerInspector.cs" />
      <Compile Include="Assets\Oculus\AudioManager\Scripts\Audio\Editor\MinMaxPropertyDrawer.cs" />
@@ -65,8 +65,6 @@
      <Compile Include="Assets\Oculus\AudioManager\Scripts\Audio\Editor\SoundFXRefPropertyDrawer.cs" />
      <Compile Include="Assets\Oculus\AudioManager\Scripts\Utils\Editor\DrawerInspectorNote.cs" />
      <Compile Include="Assets\Oculus\Avatar\Editor\AvatarMaterialEditor.cs" />
-     <Compile Include="Assets\Oculus\LipSync\Editor\OVRLipSyncBuildPostProcessor.cs" />
-     <Compile Include="Assets\Oculus\LipSync\Editor\OVRLipSyncContextMorphTargetEditor.cs" />
      <Compile Include="Assets\Oculus\LipSync\Editor\OVRLipSyncTool.cs" />
      <Compile Include="Assets\Oculus\LipSync\Editor\OVRNamedArrayPropertyDrawer.cs" />
      <Compile Include="Assets\Oculus\Platform\Editor\GUIHelper.cs" />
@@ -76,27 +74,24 @@
      <Compile Include="Assets\Oculus\SampleFramework\Core\Locomotion\Scripts\Editor\TeleportTransitionWarpInspector.cs" />
      <Compile Include="Assets\Oculus\SampleFramework\Editor\BuildAssetPackages.cs" />
      <Compile Include="Assets\Oculus\SampleFramework\Editor\OculusSampleFrameworkUtil.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\editor\ONSPAudioPluginUpdater.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\editor\ONSPAudioPluginUpdaterStub.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\editor\ONSPAudioSourceEditor.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\editor\ONSPPropagationGeometryEditor.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\editor\ONSPPropagationMaterialEditor.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\editor\ONSPPropagationSerializationManager.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\editor\ONSPReflectionCustomGUI.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Editor\ONSPAudioSourceEditor.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Editor\ONSPPropagationGeometryEditor.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Editor\ONSPPropagationMaterialEditor.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Editor\ONSPReflectionCustomGUI.cs" />
  <Reference Include="Assembly-UnityScript">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.StandardEvents">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -348,7 +343,7 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="System.Drawing">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Assets/msc2017/assetstore/capturepanorama/Managed Plugins/System.Drawing.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Assets/msc2017/Assetstore/CapturePanorama/Managed Plugins/System.Drawing.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Users/hamsa/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -395,17 +390,17 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{4492EBFA-3D06-83AD-04D7-35A1FACB4B09}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{00EF5205-63E8-4F9A-D6BD-6C3800B462E4}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{C35A6766-A6CF-059E-053C-EF96DFC99480}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{772D305A-476F-9799-0E89-2E51F648B515}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
-      <Project>{38C10886-588F-4DCD-D06B-772A3D9786AB}</Project>      <Name>Assembly-CSharp-Editor-firstpass</Name>    </ProjectReference>
+      <Project>{0A5B81A7-9CE0-CC79-A847-86CDDEC09A9F}</Project>      <Name>Assembly-CSharp-Editor-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Oculus.VR.Editor.csproj">
-      <Project>{A05D38C4-2D98-F0A0-1628-9B61925A5DC4}</Project>      <Name>Oculus.VR.Editor</Name>    </ProjectReference>
+      <Project>{E8336C68-D90C-3F6A-787F-7FD5BF2E85BF}</Project>      <Name>Oculus.VR.Editor</Name>    </ProjectReference>
     <ProjectReference Include="Oculus.VR.Scripts.Editor.csproj">
-      <Project>{9E722C1D-A60E-2E04-F2FF-DF8E39AD1A39}</Project>      <Name>Oculus.VR.Scripts.Editor</Name>    </ProjectReference>
+      <Project>{B9F67BA5-6435-0378-49D4-5E761DF3641C}</Project>      <Name>Oculus.VR.Scripts.Editor</Name>    </ProjectReference>
     <ProjectReference Include="Oculus.VR.csproj">
-      <Project>{E6F7AF4B-83CD-3779-325C-61CDADB1725F}</Project>      <Name>Oculus.VR</Name>    </ProjectReference>
+      <Project>{D41420CF-9B9F-8A83-FA1E-DEAEC88FCEE8}</Project>      <Name>Oculus.VR</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

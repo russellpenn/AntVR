@@ -59,7 +59,7 @@ public class LipSyncDemo_Control : MonoBehaviour {
 
     void RotateObject(float amountDegrees, bool absolute = false)
     {
-        GameObject target = GameObject.Find("LipSyncMorphTarget_Female");
+        GameObject target = GameObject.Find("LipSyncMorphTarget_Lips");
 
         if (target == null)
         {

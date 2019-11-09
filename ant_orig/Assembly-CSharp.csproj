@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{C35A6766-A6CF-059E-053C-EF96DFC99480}</ProjectGuid>
+    <ProjectGuid>{772D305A-476F-9799-0E89-2E51F648B515}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -53,19 +53,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\antworld\Normals.cs" />
+     <Compile Include="Assets\AntWorld\Normals.cs" />
      <Compile Include="Assets\behaviour.cs" />
      <Compile Include="Assets\boxViewTutorial.cs" />
+     <Compile Include="Assets\Brightness.cs" />
      <Compile Include="Assets\FoodInitTutorial.cs" />
      <Compile Include="Assets\FoodTutorial.cs" />
      <Compile Include="Assets\LifeTime.cs" />
      <Compile Include="Assets\movingsun.cs" />
-     <Compile Include="Assets\msc2017\assetstore\capturepanorama\CapturePanorama.cs" />
-     <Compile Include="Assets\msc2017\assetstore\capturepanorama\Scripts\Icosphere.cs" />
-     <Compile Include="Assets\msc2017\assetstore\capturepanorama\Scripts\ImageEffectCopyCamera.cs" />
-     <Compile Include="Assets\msc2017\assetstore\capturepanorama\Scripts\ReadPanoConfig.cs" />
-     <Compile Include="Assets\msc2017\assetstore\capturepanorama\Scripts\ScreenFadeControl.cs" />
-     <Compile Include="Assets\msc2017\assetstore\thetopicbirdtools\ScreenshotCreator\ScreenshotCreator.cs" />
+     <Compile Include="Assets\msc2017\Assetstore\CapturePanorama\CapturePanorama.cs" />
+     <Compile Include="Assets\msc2017\Assetstore\CapturePanorama\Scripts\Icosphere.cs" />
+     <Compile Include="Assets\msc2017\Assetstore\CapturePanorama\Scripts\ImageEffectCopyCamera.cs" />
+     <Compile Include="Assets\msc2017\Assetstore\CapturePanorama\Scripts\ReadPanoConfig.cs" />
+     <Compile Include="Assets\msc2017\Assetstore\CapturePanorama\Scripts\ScreenFadeControl.cs" />
+     <Compile Include="Assets\msc2017\Assetstore\TheTopicbirdTools\ScreenshotCreator\ScreenshotCreator.cs" />
      <Compile Include="Assets\msc2017\Scripts\normaltransformation.cs" />
      <Compile Include="Assets\msc2017\Scripts\suncal.cs" />
      <Compile Include="Assets\msc2017\Scripts\vertexloop.cs" />
@@ -82,7 +83,6 @@
      <Compile Include="Assets\Oculus\AudioManager\Scripts\Utils\InspectorNoteAttribute.cs" />
      <Compile Include="Assets\Oculus\Avatar\Samples\AvatarGallery\Scripts\OvrAvatarTestDriver.cs" />
      <Compile Include="Assets\Oculus\Avatar\Samples\GripPoses\Scripts\PoseEditHelper.cs" />
-     <Compile Include="Assets\Oculus\Avatar\Samples\LocalAvatar\Scripts\GazeTargetSpawner.cs" />
      <Compile Include="Assets\Oculus\Avatar\Samples\RemoteLoopback\Scripts\RemoteLoopbackManager.cs" />
      <Compile Include="Assets\Oculus\Avatar\Samples\SocialStarter\Assets\Scripts\P2PManager.cs" />
      <Compile Include="Assets\Oculus\Avatar\Samples\SocialStarter\Assets\Scripts\PlayerController.cs" />
@@ -90,7 +90,6 @@
      <Compile Include="Assets\Oculus\Avatar\Samples\SocialStarter\Assets\Scripts\RoomManager.cs" />
      <Compile Include="Assets\Oculus\Avatar\Samples\SocialStarter\Assets\Scripts\SocialPlatformManager.cs" />
      <Compile Include="Assets\Oculus\Avatar\Samples\SocialStarter\Assets\Scripts\VoipManager.cs" />
-     <Compile Include="Assets\Oculus\Avatar\Scripts\GazeTarget.cs" />
      <Compile Include="Assets\Oculus\Avatar\Scripts\OvrAvatar.cs" />
      <Compile Include="Assets\Oculus\Avatar\Scripts\OvrAvatarAsset.cs" />
      <Compile Include="Assets\Oculus\Avatar\Scripts\OvrAvatarAssetMesh.cs" />
@@ -239,7 +238,6 @@
      <Compile Include="Assets\Oculus\Platform\Scripts\Models\OrgScopedID.cs" />
      <Compile Include="Assets\Oculus\Platform\Scripts\Models\Party.cs" />
      <Compile Include="Assets\Oculus\Platform\Scripts\Models\PartyID.cs" />
-     <Compile Include="Assets\Oculus\Platform\Scripts\Models\PartyUpdateNotification.cs" />
      <Compile Include="Assets\Oculus\Platform\Scripts\Models\Pid.cs" />
      <Compile Include="Assets\Oculus\Platform\Scripts\Models\PingResult.cs" />
      <Compile Include="Assets\Oculus\Platform\Scripts\Models\PlatformInitialize.cs" />
@@ -256,7 +254,6 @@
      <Compile Include="Assets\Oculus\Platform\Scripts\Models\UserProof.cs" />
      <Compile Include="Assets\Oculus\Platform\Scripts\Models\UserReportID.cs" />
      <Compile Include="Assets\Oculus\Platform\Scripts\Packet.cs" />
-     <Compile Include="Assets\Oculus\Platform\Scripts\PartyUpdateAction.cs" />
      <Compile Include="Assets\Oculus\Platform\Scripts\PeerConnectionState.cs" />
      <Compile Include="Assets\Oculus\Platform\Scripts\PermissionGrantStatus.cs" />
      <Compile Include="Assets\Oculus\Platform\Scripts\PermissionType.cs" />
@@ -337,21 +334,16 @@
      <Compile Include="Assets\Oculus\SampleFramework\Usage\Locomotion\Scripts\LocomotionSampleSupport.cs" />
      <Compile Include="Assets\Oculus\SampleFramework\Usage\OVROverlay\Scripts\OVROverlaySample.cs" />
      <Compile Include="Assets\Oculus\SampleFramework\Usage\StartScene\Scripts\StartMenu.cs" />
-     <Compile Include="Assets\Oculus\SampleFramework\Usage\Stereo180Video\Plugins\Android\NativeVideoPlayer.cs" />
-     <Compile Include="Assets\Oculus\SampleFramework\Usage\Stereo180Video\Scripts\MoviePlayerSample.cs" />
-     <Compile Include="Assets\Oculus\SampleFramework\Usage\Stereo180Video\Scripts\OVROverlayMeshGenerator.cs" />
-     <Compile Include="Assets\Oculus\SampleFramework\Usage\Stereo180Video\Scripts\VectorUtil.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\scenes\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\scripts\helpers\ONSPReflectionZone.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\scripts\OculusSpatializerUnity.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\scripts\ONSPAmbisonicsNative.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\scripts\ONSPAudioSource.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\scripts\ONSPProfiler.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\scripts\ONSPPropagationGeometry.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\scripts\ONSPPropagationInterface.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\scripts\ONSPPropagationMaterial.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\scripts\ONSPPropagationSettings.cs" />
-     <Compile Include="Assets\Oculus\Spatializer\scripts\ONSPVersion.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Scenes\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Scripts\helpers\ONSPReflectionZone.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Scripts\OculusSpatializerUnity.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Scripts\ONSPAmbisonicsNative.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Scripts\ONSPAudioSource.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Scripts\ONSPProfiler.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Scripts\ONSPPropagationGeometry.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Scripts\ONSPPropagationInterface.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Scripts\ONSPPropagationMaterial.cs" />
+     <Compile Include="Assets\Oculus\Spatializer\Scripts\ONSPVersion.cs" />
      <Compile Include="Assets\Oculus\VoiceMod\Scenes\Scripts\VoiceModDemo_Logic.cs" />
      <Compile Include="Assets\Oculus\VoiceMod\Scenes\Scripts\VoiceModEnableSwitch.cs" />
      <Compile Include="Assets\Oculus\VoiceMod\Scripts\Helpers\OVRDebugConsole.cs" />
@@ -362,6 +354,7 @@
      <Compile Include="Assets\reticle.cs" />
      <Compile Include="Assets\Scripts\AntBehaviour.cs" />
      <Compile Include="Assets\Scripts\Compass.cs" />
+     <Compile Include="Assets\Scripts\CreateObject.cs" />
      <Compile Include="Assets\Scripts\DustFollow.cs" />
      <Compile Include="Assets\Scripts\FixedReticle.cs" />
      <Compile Include="Assets\Scripts\KidnappedRobot.cs" />
@@ -371,79 +364,98 @@
      <Compile Include="Assets\Scripts\QuestionMark.cs" />
      <Compile Include="Assets\Scripts\RotateObject.cs" />
      <Compile Include="Assets\Scripts\Trajectory.cs" />
+     <Compile Include="Assets\spawnFood.cs" />
+     <Compile Include="Assets\spawnNewCupcake.cs" />
      <Compile Include="Assets\StartButton.cs" />
      <Compile Include="Assets\textAlignment.cs" />
      <Compile Include="Assets\TextInit.cs" />
      <Compile Include="Assets\Tutorial.cs" />
      <Compile Include="Assets\view.cs" />
+     <Compile Include="Assets\WelcomeScript.cs" />
+     <Compile Include="Assets\WelcomeText.cs" />
      <Compile Include="Assets\WriteInFile.cs" />
      <None Include="Assets\Shaders\vertexmotion.shader" />
      <None Include="Assets\msc2017\Shaders\frontoriginal.shader" />
-     <None Include="Assets\msc2017\assetstore\capturepanorama\Compute Shaders\ConvertPanoramaShader.compute" />
+     <None Include="Assets\Oculus\Avatar\Content\Materials\AvatarMaterialStateShader.cginc" />
+     <None Include="Assets\msc2017\Assetstore\CapturePanorama\Compute Shaders\ConvertPanoramaShader.compute" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+     <None Include="Assets\Oculus\Avatar\Samples\CrossPlatform\Readme.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\msc2017\Shaders\frontcolor.shader" />
      <None Include="Assets\Oculus\Avatar\Resources\Materials\Version1.5\Avatar_PC_SingleComponent.shader" />
-     <None Include="Assets\Oculus\Avatar\Samples\CrossPlatform\Readme.txt" />
      <None Include="Assets\msc2017\Shaders\cloud.shader" />
      <None Include="Assets\msc2017\Shaders\backcolor.shader" />
      <None Include="Assets\Oculus\SampleFramework\Core\CustomHands\Materials\Hands_DiffBump.shader" />
-     <None Include="Assets\Oculus\SampleFramework\Usage\Stereo180Video\Resources\Multiview Stereo.shader" />
-     <None Include="Assets\antworld\tiny weeds\readme.txt" />
-     <None Include="Assets\msc2017\assetstore\capturepanorama\README.txt" />
-     <None Include="Assets\antworld\grass\archibase.net.txt" />
+     <None Include="Assets\AntWorld\tiny weeds\readme.txt" />
+     <None Include="Assets\msc2017\Assetstore\CapturePanorama\README.txt" />
+     <None Include="Assets\AntWorld\grass\archibase.net.txt" />
      <None Include="Assets\Oculus\SampleFramework\Usage\Locomotion\Shaders\TriPlanarWorld.shader" />
      <None Include="Assets\Oculus\SampleFramework\Core\CustomHands\Materials\Hands_Transparent.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\Oculus\Avatar\Resources\Materials\Version1.5\Avatar_Mobile_Loader.shader" />
+     <None Include="Assets\Oculus\Avatar\Content\Materials\AvatarSurfaceShader.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
      <None Include="Assets\Oculus\SampleFramework\Core\CustomHands\Shaders\Hands_02.shader" />
-     <None Include="Assets\Oculus\SampleFramework\Usage\Stereo180Video\Plugins\Android\Audio360\ThirdPartyNotices.txt" />
-     <None Include="Assets\Shaders\WindGrass.compute" />
+     <None Include="Assets\Oculus\Avatar\Content\Materials\AvatarSurfaceShaderSelfOccluding.shader" />
      <None Include="Assets\msc2017\Shaders\backcolorstatic.shader" />
-     <None Include="Assets\msc2017\assetstore\capturepanorama\Compute Shaders\TextureToBufferShader.compute" />
+     <None Include="Assets\msc2017\Assetstore\CapturePanorama\Compute Shaders\TextureToBufferShader.compute" />
      <None Include="Assets\msc2017\Shaders\dissolving.shader" />
      <None Include="Assets\Oculus\Avatar\Resources\Materials\AvatarSurfaceShaderSelfOccluding.shader" />
-     <None Include="Assets\msc2017\assetstore\capturepanorama\Shaders\Unlit Transparent HUD.shader" />
+     <None Include="Assets\msc2017\Assetstore\CapturePanorama\Shaders\Unlit Transparent HUD.shader" />
      <None Include="Assets\Oculus\Avatar\Resources\Materials\AvatarSurfaceShaderPBS.shader" />
      <None Include="Assets\Oculus\Avatar\Samples\SocialStarter\README.txt" />
      <None Include="Assets\msc2017\Shaders\frontcolorstatic.shader" />
      <None Include="Assets\Oculus\SampleFramework\license.txt" />
+     <None Include="Assets\Oculus\Avatar\Content\Materials\AvatarSurfaceShaderPBSV2.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <None Include="Assets\msc2017\Shaders\shaketest.shader" />
+     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\Oculus\Avatar\Resources\Materials\Version1.5\Avatar_Mobile_CombinedMesh.shader" />
-     <None Include="Assets\msc2017\assetstore\[bfw]simpledynamicclouds\Shaders\2DClouds.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+     <None Include="Assets\msc2017\Assetstore\[BFW]SimpleDynamicClouds\Textures\Shaders\2DClouds.shader" />
      <None Include="Assets\msc2017\Shaders\visualizetangent.shader" />
-     <None Include="Assets\Oculus\Avatar\Resources\Materials\Expressive\Avatar_Mobile_CombinedMeshExpressive.shader" />
-     <None Include="Assets\Oculus\Avatar\Resources\Materials\Expressive\Avatar_PC_SingleComponentExpressive.shader" />
-     <None Include="Assets\Oculus\Avatar\Resources\Materials\AvatarPBRV2Simple.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+     <None Include="Assets\NewImageEffectShader.shader" />
+     <None Include="Assets\Oculus\Avatar\Content\Materials\AvatarSurfaceShaderPBS.shader" />
      <None Include="Assets\msc2017\Shaders\visualizenormal.shader" />
      <None Include="Assets\Oculus\SampleFramework\Core\CustomHands\Shaders\Hands_01.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
      <None Include="Assets\msc2017\Shaders\backoriginal.shader" />
      <None Include="Assets\Shaders\Test.shader" />
-     <None Include="Assets\Oculus\Avatar\Resources\Materials\Expressive\Avatar_Mobile_SingleComponentExpressive.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Oculus\SampleFramework\Core\DebugUI\Fonts\Montserrat\OFL.txt" />
      <None Include="Assets\Oculus\Avatar\Resources\Materials\AvatarSurfaceShaderPBSV2.shader" />
      <None Include="Assets\Textures\flower\archibase.net.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\Oculus\Avatar\Resources\Materials\Version1.5\Avatar_Mobile_SingleComponent.shader" />
      <None Include="Assets\Oculus\SampleFramework\Core\Locomotion\Materials\ColumnGlow.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
      <None Include="Assets\Oculus\Avatar\Resources\Materials\AvatarMaterialStateShader.cginc" />
-     <None Include="Assets\Oculus\Avatar\Resources\Materials\Expressive\AvatarEyeLens.shader" />
      <None Include="Assets\Oculus\Avatar\Resources\Materials\AvatarSurfaceShader.shader" />
-     <None Include="Assets\Shaders\WindEffect.shader" />
+     <None Include="Assets\BrightnessShader2.shader" />
      <None Include="Assets\Oculus\SampleFramework\Usage\DistanceGrab\Materials\ToyCubeWithOutline.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
      <None Include="Assets\msc2017\Shaders\visualizeuv.shader" />
-     <None Include="Assets\msc2017\assetstore\[bfw]simpledynamicclouds\ReadMe.txt" />
+     <None Include="Assets\msc2017\Assetstore\[BFW]SimpleDynamicClouds\ReadMe.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\GUI\guiShader.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
      <None Include="Assets\Oculus\SampleFramework\Usage\DistanceGrab\Materials\CrosshairZCheat.shader" />
-     <None Include="Assets\msc2017\assetstore\capturepanorama\Compute Shaders\ConvertPanoramaStereoShader.compute" />
-     <None Include="Assets\msc2017\assetstore\thetopicbirdtools\ScreenshotCreator\readme.txt" />
+     <None Include="Assets\msc2017\Assetstore\CapturePanorama\Compute Shaders\ConvertPanoramaStereoShader.compute" />
+     <None Include="Assets\msc2017\Assetstore\TheTopicbirdTools\ScreenshotCreator\readme.txt" />
  <Reference Include="UnityEditor.StandardEvents">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -644,7 +656,7 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="System.Drawing">
- <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/antw2/Assets/msc2017/assetstore/capturepanorama/Managed Plugins/System.Drawing.dll</HintPath>
+ <HintPath>G:/Letöltések/mindenféle/University/Dissertation Project/Dissertation-Project/ant_orig/Assets/msc2017/Assetstore/CapturePanorama/Managed Plugins/System.Drawing.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/hamsa/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
@@ -682,13 +694,13 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{4492EBFA-3D06-83AD-04D7-35A1FACB4B09}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{00EF5205-63E8-4F9A-D6BD-6C3800B462E4}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Oculus.VR.Editor.csproj">
-      <Project>{A05D38C4-2D98-F0A0-1628-9B61925A5DC4}</Project>      <Name>Oculus.VR.Editor</Name>    </ProjectReference>
+      <Project>{E8336C68-D90C-3F6A-787F-7FD5BF2E85BF}</Project>      <Name>Oculus.VR.Editor</Name>    </ProjectReference>
     <ProjectReference Include="Oculus.VR.Scripts.Editor.csproj">
-      <Project>{9E722C1D-A60E-2E04-F2FF-DF8E39AD1A39}</Project>      <Name>Oculus.VR.Scripts.Editor</Name>    </ProjectReference>
+      <Project>{B9F67BA5-6435-0378-49D4-5E761DF3641C}</Project>      <Name>Oculus.VR.Scripts.Editor</Name>    </ProjectReference>
     <ProjectReference Include="Oculus.VR.csproj">
-      <Project>{E6F7AF4B-83CD-3779-325C-61CDADB1725F}</Project>      <Name>Oculus.VR</Name>    </ProjectReference>
+      <Project>{D41420CF-9B9F-8A83-FA1E-DEAEC88FCEE8}</Project>      <Name>Oculus.VR</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

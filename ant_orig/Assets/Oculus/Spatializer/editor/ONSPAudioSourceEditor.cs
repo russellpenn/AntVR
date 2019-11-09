@@ -1,6 +1,10 @@
 /************************************************************************************
-Filename    :   ONSPAudioSourceEditor.cs
+
+Filename    :   OculusSpatializerUserParamsEditor.cs
 Content     :   This script adds editor functionality to OculusSpatializerUserParams script.
+Created     :   December 14, 2015
+Authors     :   Peter Giokaris
+
 Copyright   :   Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
 
 Licensed under the Oculus SDK Version 3.5 (the "License"); 

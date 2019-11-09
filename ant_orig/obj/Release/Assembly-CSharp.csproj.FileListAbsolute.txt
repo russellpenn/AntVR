@@ -1,2 +1,0 @@
-D:\antw2\obj\Release\Assembly-CSharp.csprojAssemblyReference.cache
-D:\antw2\obj\Release\Assembly-CSharp.csproj.CoreCompileInputs.cache

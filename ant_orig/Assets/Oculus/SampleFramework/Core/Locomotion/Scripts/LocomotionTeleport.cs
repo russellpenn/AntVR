@@ -806,7 +806,7 @@ public class LocomotionTeleport : MonoBehaviour
 #if UNITY_2017_2_OR_NEWER
 		Quaternion headRotation = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.Head);
 #else
-		Quaternion headRotation = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.Head);
+		Quaternion headRotation = InputTracking.GetLocalRotation(VRNode.Head);
 #endif
 		Vector3 euler = headRotation.eulerAngles;
 		euler.x = 0;

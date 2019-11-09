@@ -28,13 +28,14 @@ public abstract class OVRCameraComposition : OVRComposition {
 
 	internal readonly OVRPlugin.CameraDevice cameraDevice = OVRPlugin.CameraDevice.WebCamera0;
 
+	private OVRCameraRig cameraRig;
+
 	private Mesh boundaryMesh = null;
 	private float boundaryMeshTopY = 0.0f;
 	private float boundaryMeshBottomY = 0.0f;
 	private OVRManager.VirtualGreenScreenType boundaryMeshType = OVRManager.VirtualGreenScreenType.Off;
 
-	protected OVRCameraComposition(GameObject parentObject, Camera mainCamera, OVRManager.CameraDevice inCameraDevice, bool inUseDynamicLighting, OVRManager.DepthQuality depthQuality)
-		: base(parentObject, mainCamera)
+	protected OVRCameraComposition(OVRManager.CameraDevice inCameraDevice, bool inUseDynamicLighting, OVRManager.DepthQuality depthQuality)
 	{
 		cameraDevice = OVRCompositionUtil.ConvertCameraDevice(inCameraDevice);
 
@@ -53,8 +54,7 @@ public abstract class OVRCameraComposition : OVRComposition {
 		{
 			OVRPlugin.CameraExtrinsics extrinsics;
 			OVRPlugin.CameraIntrinsics intrinsics;
-			OVRPlugin.Posef calibrationRawPose;
-			if (OVRPlugin.GetExternalCameraCount() > 0 && OVRPlugin.GetMixedRealityCameraInfo(0, out extrinsics, out intrinsics, out calibrationRawPose))
+			if (OVRPlugin.GetExternalCameraCount() > 0 && OVRPlugin.GetMixedRealityCameraInfo(0, out extrinsics, out intrinsics))
 			{
 				OVRPlugin.SetCameraDevicePreferredColorFrameSize(cameraDevice, intrinsics.ImageSensorPixelResolution.w, intrinsics.ImageSensorPixelResolution.h);
 			}
@@ -82,11 +82,9 @@ public abstract class OVRCameraComposition : OVRComposition {
 				OVRPlugin.SetCameraDevicePreferredDepthQuality(cameraDevice, quality);
 			}
 
-			Debug.LogFormat("Opening camera device {0}", cameraDevice);
 			OVRPlugin.OpenCameraDevice(cameraDevice);
 			if (OVRPlugin.HasCameraDeviceOpened(cameraDevice))
 			{
-				Debug.LogFormat("Opened camera device {0}", cameraDevice);
 				hasCameraDeviceOpened = true;
 			}
 		}
@@ -97,7 +95,6 @@ public abstract class OVRCameraComposition : OVRComposition {
 		OVRCompositionUtil.SafeDestroy(ref cameraFramePlaneObject);
 		if (hasCameraDeviceOpened)
 		{
-			Debug.LogFormat("Close camera device {0}", cameraDevice);
 			OVRPlugin.CloseCameraDevice(cameraDevice);
 		}
 	}
@@ -112,7 +109,7 @@ public abstract class OVRCameraComposition : OVRComposition {
 		Debug.Assert(cameraFramePlaneObject == null);
 		cameraFramePlaneObject = GameObject.CreatePrimitive(PrimitiveType.Quad);
 		cameraFramePlaneObject.name = "MRCameraFrame";
-		cameraFramePlaneObject.transform.parent = cameraInTrackingSpace ? cameraRig.trackingSpace : parentObject.transform;
+		cameraFramePlaneObject.transform.parent = parentObject.transform;
 		cameraFramePlaneObject.GetComponent<Collider>().enabled = false;
 		cameraFramePlaneObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 		Material cameraFrameMaterial = new Material(Shader.Find(useDynamicLighting ? "Oculus/OVRMRCameraFrameLit" : "Oculus/OVRMRCameraFrame"));
@@ -172,8 +169,17 @@ public abstract class OVRCameraComposition : OVRComposition {
 
 			float cullingDistance = float.MaxValue;
 
+			cameraRig = null;
 			if (OVRManager.instance.virtualGreenScreenType != OVRManager.VirtualGreenScreenType.Off)
 			{
+				cameraRig = mainCamera.GetComponentInParent<OVRCameraRig>();
+				if (cameraRig != null)
+				{
+					if (cameraRig.centerEyeAnchor == null)
+					{
+						cameraRig = null;
+					}
+				}
 				RefreshBoundaryMesh(mixedRealityCamera, out cullingDistance);
 			}
 

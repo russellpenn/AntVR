@@ -23,7 +23,9 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using Oculus.Spatializer.Propagation;
+
+using ONSPPropagationInterface;
+using ONSPPropagationInterface.Unity_Native; // Other choices: Wwise, FMOD
 
 public sealed class ONSPPropagationMaterial : MonoBehaviour
 {
@@ -175,7 +177,7 @@ public sealed class ONSPPropagationMaterial : MonoBehaviour
 			return;
 						
 		// Create the internal material.
-		if (ONSPPropagation.Interface.CreateAudioMaterial( out materialHandle ) != ONSPPropagationGeometry.OSPSuccess)
+		if (PropIFace.CreateAudioMaterial( out materialHandle ) != ONSPPropagationGeometry.OSPSuccess)
 			throw new Exception("Unable to create internal audio material");
 		
 		// Run the updates to initialize the material.
@@ -193,7 +195,7 @@ public sealed class ONSPPropagationMaterial : MonoBehaviour
 		if ( materialHandle != IntPtr.Zero )
 		{
             // Destroy the material.
-            ONSPPropagation.Interface.DestroyAudioMaterial(materialHandle);
+            PropIFace.DestroyAudioMaterial(materialHandle);
 			materialHandle = IntPtr.Zero;
 		}
 	}
@@ -207,24 +209,24 @@ public sealed class ONSPPropagationMaterial : MonoBehaviour
 			return;
 
         // Absorption
-        ONSPPropagation.Interface.AudioMaterialReset(materialHandle, MaterialProperty.ABSORPTION);
+        PropIFace.AudioMaterialReset(materialHandle, MaterialProperty.ABSORPTION);
 
 		foreach ( Point p in absorption.points )
-            ONSPPropagation.Interface.AudioMaterialSetFrequency(materialHandle, MaterialProperty.ABSORPTION, 
+            PropIFace.AudioMaterialSetFrequency(materialHandle, MaterialProperty.ABSORPTION, 
                                                           p.frequency, p.data );
 
         // Transmission
-        ONSPPropagation.Interface.AudioMaterialReset(materialHandle, MaterialProperty.TRANSMISSION);
+        PropIFace.AudioMaterialReset(materialHandle, MaterialProperty.TRANSMISSION);
 
         foreach (Point p in transmission.points)
-            ONSPPropagation.Interface.AudioMaterialSetFrequency(materialHandle, MaterialProperty.TRANSMISSION, 
+            PropIFace.AudioMaterialSetFrequency(materialHandle, MaterialProperty.TRANSMISSION, 
                                                           p.frequency, p.data);
 
         // Scattering
-        ONSPPropagation.Interface.AudioMaterialReset(materialHandle, MaterialProperty.SCATTERING);
+        PropIFace.AudioMaterialReset(materialHandle, MaterialProperty.SCATTERING);
 
         foreach (Point p in scattering.points)
-            ONSPPropagation.Interface.AudioMaterialSetFrequency(materialHandle, MaterialProperty.SCATTERING,
+            PropIFace.AudioMaterialSetFrequency(materialHandle, MaterialProperty.SCATTERING,
                                                           p.frequency, p.data);
 
     }
