@@ -1,3 +1,4 @@
 ant_orig/Assets/untitled.obj filter=lfs diff=lfs merge=lfs -text
 ant_orig/Assets/antworld/thistlesReduced.obj filter=lfs diff=lfs merge=lfs -text
 ant_orig/Assets/msc2017/vegetationwithcolor.fbx filter=lfs diff=lfs merge=lfs -text
+ant_orig/Assets/antworld/TestNewMesh.obj filter=lfs diff=lfs merge=lfs -text
